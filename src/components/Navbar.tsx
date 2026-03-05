@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Rocket } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+  const [location] = useLocation();
+  const isHome = location  === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
