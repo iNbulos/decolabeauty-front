@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Rocket } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [location] = useLocation();
-  const isHome = location  === "/";
+  const [location, setLocation] = useLocation();
+  const { role, user } = useAuth();
+  const isHome = location === "/";
+
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -52,9 +55,21 @@ const Navbar = () => {
             </Link>
           )}
           <div className="inline-flex items-center gap-1.5 rounded-xl bg-secondary/15 border border-secondary/30 px-4 py-1.5 text-sm font-medium text-secondary">
-            <Rocket className="h-3.5 w-3.5" />
+            <Rocket className="h-4 w-4 animate-bounce" />
             Em Breve
           </div>
+          <button type="button" onClick={() => setLocation("account")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+            <span>{
+              user?.displayName ? user.displayName : (user ? "Conta" : "Entrar")
+            }</span>
+          </button>
+          {role === "admin" && (
+            <button type="button" onClick={() => setLocation("admin")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+              <span>Admin</span>
+            </button>
+          )}
+
+
         </div>
 
         {/* Mobile toggle */}

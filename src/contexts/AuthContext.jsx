@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useCallback,
   useMemo,
   useState,
 } from "react";
@@ -31,11 +32,12 @@ const AuthContext = createContext({
   loading: true,
   role: null,
   profile: null,
-  signInWithEmailAndPassword: async (_e, _p) => {},
-  createUserWithEmailAndPassword: async (_e, _p, _extra) => {},
-  signInWithGoogle: async () => {},
-  signOut: async () => {},
-  updateUserProfile: async (_data) => {},
+  getIdToken: async (_forceRefresh = false) => null,
+  signInWithEmailAndPassword: async (_e, _p) => { },
+  createUserWithEmailAndPassword: async (_e, _p, _extra) => { },
+  signInWithGoogle: async () => { },
+  signOut: async () => { },
+  updateUserProfile: async (_data) => { },
 });
 
 export function AuthProvider({ children }) {
@@ -209,6 +211,12 @@ export function AuthProvider({ children }) {
 
   const signOut = () => firebaseSignOut(auth);
 
+  const getIdToken = useCallback(async (forceRefresh = false) => {
+    const u = auth.currentUser;
+    if (!u) return null;                // ou throw new Error(...)
+    return await u.getIdToken(forceRefresh);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -216,6 +224,7 @@ export function AuthProvider({ children }) {
         role,
         profile,
         loading,
+        getIdToken,
         signInWithEmailAndPassword,
         createUserWithEmailAndPassword,
         signInWithGoogle,

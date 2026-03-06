@@ -1,12 +1,9 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "./components/ui/toaster";
+import { Toaster as Sonner } from "./components/ui/sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Switch, Route, useLocation } from "wouter";
-import Index from "./pages/Index";
-import Privacy from "./pages/Privacy";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/RoutePages/Login";
+import { Home, Privacy, NotFound, Login, UsersPage, User } from "./pages";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { useEffect } from "react";
 
@@ -55,15 +52,20 @@ const App = () => (
         <Sonner />
 
         <Switch>
-          <Route path="/" component={Index} />
+          <Route path="/" component={Home} />
           <Route path="/privacy" component={Privacy} />
 
           <Route path="/login" component={Login} />
 
           {/* Admin protegido */}
+
+          <Route path="/account">
+            <User />
+          </Route>
+
           <Route path="/admin">
             <PrivateRoute roles={["admin"]}>
-              <h1>Admin Panel</h1>
+              <UsersPage />
             </PrivateRoute>
           </Route>
 
