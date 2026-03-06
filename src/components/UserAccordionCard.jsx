@@ -1,4 +1,5 @@
 import { useState } from "react";
+import EntitlementCard from "./EntitlementCard";
 
 function UserAccordionCard({ user }) {
   const [expanded, setExpanded] = useState(false);
@@ -18,7 +19,7 @@ function UserAccordionCard({ user }) {
   function formatPhone(phoneNumber) {
     return phoneNumber || "Não informado";
   }
-
+ 
   return (
     <div className="w-full rounded-2xl border border-zinc-200 bg-white shadow-sm transition hover:shadow-md">
       <button
@@ -56,7 +57,6 @@ function UserAccordionCard({ user }) {
           </svg>
         </div>
       </button>
-
       <div
         className={`grid transition-all duration-300 ${
           expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
@@ -81,8 +81,11 @@ function UserAccordionCard({ user }) {
               />
             </div>
           </div>
+          <EntitlementCard subscription={user.entitlements?.[0]} />
         </div>
       </div>
+
+    
     </div>
   );
 }
