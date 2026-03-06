@@ -8,9 +8,7 @@ import {
 } from "react";
 import {
   GoogleAuthProvider,
-  createUserWithEmailAndPassword as firebaseCreateUserWithEmailAndPassword,
   onAuthStateChanged,
-  signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword,
   signInWithPopup as firebaseSignInWithPopup,
   signOut as firebaseSignOut,
 } from "firebase/auth";
@@ -33,8 +31,6 @@ const AuthContext = createContext({
   role: null,
   profile: null,
   getIdToken: async (_forceRefresh = false) => null,
-  signInWithEmailAndPassword: async (_e, _p) => { },
-  createUserWithEmailAndPassword: async (_e, _p, _extra) => { },
   signInWithGoogle: async () => { },
   signOut: async () => { },
   updateUserProfile: async (_data) => { },
@@ -136,30 +132,6 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const signInWithEmailAndPassword = (email, password) =>
-    firebaseSignInWithEmailAndPassword(auth, email, password);
-
-  const createUserWithEmailAndPassword = async (email, password, extraProfile = {}) => {
-    const cred = await firebaseCreateUserWithEmailAndPassword(auth, email, password);
-    const firebaseUser = cred.user;
-    const ref = doc(db, "users", firebaseUser.uid);
-
-    const userProfile = {
-      email: firebaseUser.email,
-      role: extraProfile.role || "client",
-      name: extraProfile.name || "",
-      createdAt: serverTimestamp(),
-      ...extraProfile,
-    };
-
-    await setDoc(ref, userProfile);
-
-    setProfile(prev => ({ ...prev, ...userProfile }));
-    setRole(userProfile.role);
-
-    return cred;
-  };
-
   const signInWithGoogle = async () => {
     const result = await firebaseSignInWithPopup(auth, googleProvider);
     const firebaseUser = result.user;
@@ -225,8 +197,6 @@ export function AuthProvider({ children }) {
         profile,
         loading,
         getIdToken,
-        signInWithEmailAndPassword,
-        createUserWithEmailAndPassword,
         signInWithGoogle,
         signOut,
         updateUserProfile,

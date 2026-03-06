@@ -50,7 +50,7 @@ export default function EntitlementCard({ entitlement }) {
                 toast.error("Erro ao atualizar assinatura: " + (data.message || "Resposta inesperada"));
             }
         } catch (err) {
-            toast.error("Erro: ", err);
+            toast.error("Erro: " + err.message || err);
         } finally {
             setLoading(false);
         }
