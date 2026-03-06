@@ -13,13 +13,14 @@ function UserAccordionCard({ user }) {
     return parsedDate.toLocaleString("pt-BR", {
       dateStyle: "short",
       timeStyle: "short",
+      timeZone: "UTC",
     });
   }
 
   function formatPhone(phoneNumber) {
     return phoneNumber || "Não informado";
   }
- 
+
   return (
     <div className="w-full rounded-2xl border border-zinc-200 bg-white shadow-sm transition hover:shadow-md">
       <button
@@ -37,9 +38,8 @@ function UserAccordionCard({ user }) {
         </div>
 
         <div
-          className={`shrink-0 transition-transform duration-200 ${
-            expanded ? "rotate-90" : "rotate-0"
-          }`}
+          className={`shrink-0 transition-transform duration-200 ${expanded ? "rotate-90" : "rotate-0"
+            }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,9 +58,8 @@ function UserAccordionCard({ user }) {
         </div>
       </button>
       <div
-        className={`grid transition-all duration-300 ${
-          expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
+        className={`grid transition-all duration-300 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          }`}
       >
         <div className="overflow-hidden">
           <div className="border-t border-zinc-100 px-5 py-4">
@@ -81,11 +80,11 @@ function UserAccordionCard({ user }) {
               />
             </div>
           </div>
-          <EntitlementCard subscription={user.entitlements?.[0]} />
+          <EntitlementCard entitlement={user.entitlements?.[0]} />
         </div>
       </div>
 
-    
+
     </div>
   );
 }
