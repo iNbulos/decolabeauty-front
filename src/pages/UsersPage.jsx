@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { api, usersApi } from "../api";
 import { useAuth } from "../contexts/AuthContext";
 import { Card, CardContent } from "../components/ui/card";
+import UserAccordionCard from "../components/UserAccordionCard";
+import Navbar from "@/components/Navbar";
+
 
 export default function UsersPage() {
     const [loading, setLoading] = useState(true);
@@ -14,7 +17,7 @@ export default function UsersPage() {
                 const token = await getIdToken();
                 api.setToken(token);
                 const data = await usersApi.list();
-                setUsers(data);
+                setUsers(data.users);
             } catch (err) {
                 console.log("Erro:", err);
             } finally {
@@ -40,12 +43,14 @@ export default function UsersPage() {
 
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-            <Card className="w-full shadow-lg rounded-2xl">
-                <CardContent className="flex flex-col items-center justify-center gap-3 p-6">
-                    <pre>{JSON.stringify(users, null, 2)}</pre>
-                </CardContent>
-            </Card>
-        </div>
+        <>
+            <Navbar />
+            <div className="mx-auto max-w-4xl space-y-4 p-6">
+                {users.map((user) => (
+                    <UserAccordionCard key={user.uid} user={user} />
+                ))}
+            </div>
+        </>
+
     );
 }
