@@ -38,7 +38,7 @@ export default function Main() {
     }
 
     return (
-        <div className="h-screen overflow-hidden bg-background lg:flex">
+        <div className="flex min-h-dvh flex-col overflow-hidden bg-background lg:flex-row">
             <Sidebar
                 activeItem={activeItem}
                 onNavigate={handleNavigate}

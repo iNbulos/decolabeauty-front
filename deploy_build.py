@@ -7,10 +7,10 @@ import paramiko
 # ==== CONFIGURAÇÃO DO SERVIDOR ====
 HOST = "72.60.0.117"       # ex: "123.123.123.123"
 PORT = 22
-USERNAME = "root"
+USERNAME = "nbulos"
 
 # use EITHER PASSWORD or KEY_FILE (deixa o outro como None)
-PASSWORD = "Kgabriel@15059534"    # ou None se usar chave
+PASSWORD = "Gc*20049534"    # ou None se usar chave
 KEY_FILE = None               # ex: r"C:\Users\Gabriel\.ssh\id_rsa"
 
 

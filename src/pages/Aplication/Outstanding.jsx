@@ -53,7 +53,7 @@ export default function Outstanding() {
 
 
     return (
-        <section className="flex h-full min-h-0 w-full flex-col bg-background text-foreground">
+        <section className="flex h-full min-h-0 w-full flex-col text-foreground">
             <div className="px-3 pt-3 sm:px-4">
                 <input
                     type="text"
