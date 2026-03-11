@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Switch, Route, useLocation } from "wouter";
-import { Home, Privacy, NotFound, Login, UsersPage, User } from "./pages";
+import { Home, Privacy, NotFound, Login, UsersPage, User, Main, Unauthorized } from "./pages";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { useEffect } from "react";
 
@@ -67,6 +67,16 @@ const App = () => (
             <PrivateRoute roles={["admin"]}>
               <UsersPage />
             </PrivateRoute>
+          </Route>
+
+          <Route path="/application">
+            <PrivateRoute roles={["client", "admin"]}>
+              <Main />
+            </PrivateRoute>
+          </Route>
+
+          <Route path="/401">
+            <Unauthorized />
           </Route>
 
           {/* 404 */}

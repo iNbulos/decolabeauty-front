@@ -58,18 +58,20 @@ const Navbar = () => {
             <Rocket className="h-4 w-4 animate-bounce" />
             Em Breve
           </div>
-          <button type="button" onClick={() => setLocation("account")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
-            <span>{
-              user?.displayName ? user.displayName : (user ? "Conta" : "Entrar")
-            }</span>
-          </button>
           {role === "admin" && (
             <button type="button" onClick={() => setLocation("admin")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
               <span>Admin</span>
             </button>
           )}
+          <button type="button" onClick={() => setLocation("account")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+            <span>{
+              user?.displayName ? user.displayName : (user ? "Conta" : "Entrar")
+            }</span>
+          </button>
 
-
+          <button type="button" onClick={() => setLocation("application")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+            <span>Acessar meu painel</span>
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -121,6 +123,20 @@ const Navbar = () => {
               <Rocket className="h-3.5 w-3.5" />
               Lançamento em Breve
             </div>
+
+            {role === "admin" && (
+              <button type="button" onClick={() => setLocation("admin")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+                <span>Admin</span>
+              </button>
+            )}
+            <button type="button" onClick={() => setLocation("account")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+              <span>{
+                user?.displayName ? user.displayName : (user ? "Conta" : "Entrar")
+              }</span>
+            </button>
+            <button type="button" onClick={() => setLocation("application")} className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+              <span>Acessar meu painel</span>
+            </button>
           </div>
         </motion.div>
       )}
