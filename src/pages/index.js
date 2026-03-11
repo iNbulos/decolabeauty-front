@@ -1,6 +1,6 @@
 export { default as Home } from "./Home";
-export { default as Privacy } from "./Privacy";
-export { default as NotFound } from "./NotFound";
-export { default as UsersPage } from "./UsersPage";
-export { default as Login } from "./RoutePages/Login";
-export { default as User } from "./User";
+export { default as Privacy } from "./Route/Privacy";
+export { default as NotFound } from "./Route/NotFound";
+export { default as UsersPage } from "./Admin/UsersPage";
+export { default as Login } from "./Route/Login";
+export { default as User } from "./Client/User";

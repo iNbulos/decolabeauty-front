@@ -1,4 +1,4 @@
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 const DEFAULT_AVATAR =
