@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
-import sidebarSections from "../lib/sidebar";
+import { sidebarSections } from "../lib/sidebar";
 
 function SidebarItem({
   item,
@@ -25,8 +25,8 @@ function SidebarItem({
         isActive
           ? "bg-primary text-primary-foreground border-primary shadow-glow"
           : item.danger
-          ? "bg-transparent text-rose-600 border-transparent hover:bg-rose-50 dark:hover:bg-rose-950/30"
-          : "bg-transparent text-foreground border-transparent hover:bg-muted hover:border-border",
+            ? "bg-transparent text-rose-600 border-transparent hover:bg-rose-50 dark:hover:bg-rose-950/30"
+            : "bg-transparent text-foreground border-transparent hover:bg-muted hover:border-border",
       ].join(" ")}
     >
       <Icon className="h-5 w-5 shrink-0" />
@@ -98,10 +98,10 @@ function SidebarGroup({
 
 export default function Sidebar({
   activeItem = "agenda",
-  onNavigate = () => {},
+  onNavigate = () => { },
   userName = "Usuário",
   isOpen = false,
-  onClose = () => {},
+  onClose = () => { },
 }) {
   return (
     <>

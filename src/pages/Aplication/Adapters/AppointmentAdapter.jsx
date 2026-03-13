@@ -162,49 +162,44 @@ function AppointmentItem({ appointment, onItemClick }) {
         <button
             type="button"
             onClick={() => onItemClick?.(appointment)}
-            className="w-full rounded-2xl border border-border bg-card text-left transition hover:border-primary/30 hover:shadow-sm"
+            className="flex w-full items-center gap-3 px-4 py-4 text-left transition hover:bg-muted/45 sm:px-5"
         >
-            <div className="p-4">
-                <div className="flex items-start gap-3">
-                    <div className="min-w-0 flex-1">
-                        {/* customer + start_at */}
-                        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                            <p className="truncate text-[16.5px] font-bold text-foreground">
-                                {customer}
-                            </p>
+            <div className="min-w-0 flex-1">
+                <div className="flex  flex-row  items-center  justify-between">
+                    <p className="truncate text-[16.5px] font-bold text-foreground">
+                        {customer}
+                    </p>
 
-                            <p className="text-sm text-muted-foreground sm:text-right">
-                                {formatDateBR(startAt)}
-                            </p>
-                        </div>
+                    <p className="text-sm text-muted-foreground sm:text-right">
+                        {formatDateBR(startAt)}
+                    </p>
+                </div>
 
-                        {/* service + state */}
-                        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                            <p className="truncate text-sm text-foreground">
-                                {service}
-                            </p>
+                {/* service + state */}
+                <div className="mt-2 flex flex-row items-center justify-between">
+                    <p className="truncate text-sm text-foreground">
+                        {service}
+                    </p>
 
-                            <span
-                                className={`inline-flex w-fit rounded-full px-2.5 py-1 text-xs font-semibold ${getStatusClasses(
-                                    appointment?.status
-                                )}`}
-                            >
-                                {statusLabel}
-                            </span>
-                        </div>
+                    <span
+                        className={`inline-flex w-fit rounded-full px-2.5 py-1 text-xs font-semibold ${getStatusClasses(
+                            appointment?.status
+                        )}`}
+                    >
+                        {statusLabel}
+                    </span>
+                </div>
 
-                        {/* times + value */}
-                        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                            <p className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-                                <Clock3 className="h-4 w-4" />
-                                {formatTimeBR(startAt)} ~ {formatTimeBR(endAt)}
-                            </p>
+                {/* times + value */}
+                <div className="mt-2 flex flex-row items-center justify-between">
+                    <p className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                        <Clock3 className="h-4 w-4" />
+                        {formatTimeBR(startAt)} ~ {formatTimeBR(endAt)}
+                    </p>
 
-                            <p className="text-sm font-bold text-primary">
-                                {formatMoneyBR(value)}
-                            </p>
-                        </div>
-                    </div>
+                    <p className="text-sm font-bold text-primary">
+                        {formatMoneyBR(value)}
+                    </p>
                 </div>
             </div>
         </button>
@@ -223,16 +218,17 @@ export default function AppointmentAdapter({
             </div>
         );
     }
-
     return (
-        <div className="space-y-3">
-            {appointments.map((appointment, index) => (
-                <AppointmentItem
-                    key={appointment?.id ?? `appointment-${index}`}
-                    appointment={appointment}
-                    onItemClick={onItemClick}
-                />
-            ))}
+        <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-card">
+            <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-border scrollbar-hide">
+                {appointments.map((appointment, index) => (
+                    <AppointmentItem
+                        key={appointment?.id ?? `appointment-${index}`}
+                        appointment={appointment}
+                        onItemClick={onItemClick}
+                    />
+                ))}
+            </div>
         </div>
     );
 }

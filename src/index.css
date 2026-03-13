@@ -65,7 +65,8 @@
 .tiptap-editor p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;
-  color: rgb(148 163 184); /* slate-400 */
+  color: rgb(148 163 184);
+  /* slate-400 */
   pointer-events: none;
   height: 0;
 }
@@ -217,6 +218,18 @@
   .shadow-card {
     box-shadow: 0 4px 24px -4px hsl(291 64% 42% / 0.1);
   }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE e Edge antigo */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 @layer components {

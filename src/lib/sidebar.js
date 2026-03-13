@@ -1,4 +1,3 @@
-import Outstanding from "@/pages/Aplication/Outstanding";
 import {
     CalendarDays,
     BadgeDollarSign,
@@ -15,7 +14,7 @@ import {
     Home,
 } from "lucide-react";
 
-const sidebarSections = [
+export const sidebarSections = [
     {
         type: "item",
         id: "agenda",
@@ -107,4 +106,18 @@ const sidebarSections = [
     },
 ];
 
-export default sidebarSections;
+export const sidebarTranslate = {
+    agenda: "Agenda",
+    outstanding: "Cobranças",
+    mpd: "Msgs Pré-definidas",
+    customers: "Clientes",
+    services: "Serviço",
+    products: "Produtos e Estoque",
+    expenses: "Despesas",
+    employees: "Funcionários",
+    top_customers: "Melhores clientes",
+    overview: "Resumo financeiro",
+    settings: "Minha conta",
+    logout: "Sair",
+    home: "Página inicial",
+};

@@ -3,7 +3,9 @@ import { Menu } from "lucide-react";
 import Sidebar from "../../components/Sidebar";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLocation } from "wouter";
-import Outstanding from "./Outstanding";
+import FragOutstanding from "./Frags/FragOutstanding";
+import FragCustomer from "./Frags/FragCustomer";
+import { sidebarTranslate } from "../../lib/sidebar";
 
 export default function Main() {
     const [activeItem, setActiveItem] = useState("agenda");
@@ -28,7 +30,13 @@ export default function Main() {
         }
 
         if (itemId === "outstanding") {
-            setActivePage(<Outstanding />);
+            setActivePage(<FragOutstanding />);
+            setSidebarOpen(false);
+            return;
+        }
+
+        if (itemId === "customers") {
+            setActivePage(<FragCustomer />);
             setSidebarOpen(false);
             return;
         }
@@ -49,7 +57,7 @@ export default function Main() {
 
             <div className="flex min-h-0 flex-1 flex-col lg:ml-0">
                 <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur lg:hidden">
-                    <div className="flex items-center justify-between px-4 py-3">
+                    <div className="flex items-center  px-4 py-3">
                         <button
                             type="button"
                             onClick={() => setSidebarOpen(true)}
@@ -59,28 +67,17 @@ export default function Main() {
                             <Menu className="h-5 w-5" />
                         </button>
 
-                        <div className="flex min-w-0 items-center gap-3">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white shadow-glow overflow-hidden">
-                                <img
-                                    src="https://decolabeauty.com/media/logo-decolabeauty.png"
-                                    alt="Logo Decola Beauty"
-                                    className="h-7 w-7 object-contain"
-                                />
-                            </div>
-
+                        <div className="flex min-w-0 mx-5 items-center gap-3">
                             <div className="min-w-0">
-                                <h1 className="truncate text-sm font-extrabold text-foreground">
-                                    Decola Beauty
+                                <h1 className="truncate text-lg font-extrabold text-foreground">
+                                    {sidebarTranslate[activeItem]}
                                 </h1>
-                                <p className="truncate text-xs text-muted-foreground">
-                                    {user?.displayName || "Usuário"}
-                                </p>
                             </div>
                         </div>
                     </div>
                 </header>
 
-                <main className="flex flex-1 min-h-0 p-4 sm:p-5 md:p-6">
+                <main className="flex flex-1 min-h-0 max-h-screen p-4 sm:p-5 md:p-6">
                     <div className="flex min-h-0 flex-1 rounded-2xl border border-border bg-card p-4 shadow-card sm:rounded-3xl sm:p-6">
                         {
                             activePage && (

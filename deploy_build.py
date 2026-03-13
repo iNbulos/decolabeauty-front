@@ -18,7 +18,8 @@ KEY_FILE = None               # ex: r"C:\Users\Gabriel\.ssh\id_rsa"
 LOCAL_DIST = Path(r'D:\Projects\decolabeauty.com-front\dist')
 
 REMOTE_BUILDS = [
-    "/var/www/decolabeauty.com/build"
+    "/var/www/decolabeauty.com/build",
+    "/var/www/app.decolabeauty.com/build"
 ]
 
 

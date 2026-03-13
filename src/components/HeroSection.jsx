@@ -25,12 +25,15 @@ export default function HeroSection() {
               rotina e foque no que você faz de melhor.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row lg:justify-start justify-center">
-              <div className="inline-flex items-center gap-2 rounded-2xl bg-secondary/15 border border-secondary/30 px-6 py-3 text-lg font-semibold text-secondary">
-                <Rocket className="h-5 w-5" />
-                Lançamento em Breve
-              </div>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.module.decolabeauty&hl=pt_BR"
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary to-secondary/80 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-secondary/20 transition-all duration-200 hover:scale-105 hover:shadow-secondary/40 hover:-translate-y-0.5 active:scale-95">
+                <Rocket className="h-4 w-4 animate-bounce" />
+                Baixe Agora
+              </a>
               <span className="text-sm text-muted-foreground">
-                Fique atento às novidades!
+                Decole seu negócio hoje mesmo!
               </span>
             </div>
           </motion.div>
