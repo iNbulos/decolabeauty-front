@@ -3,7 +3,7 @@ import { api, appointmentsApi } from "../../../api";
 import { useAuth } from "../../../contexts/AuthContext";
 import AppointmentAdapter from "../Adapters/AppointmentAdapter";
 import CardLoading from "@/components/CardLoading";
-import AppointmentDialog from "@/components/AppointmentDialog";
+import AppointmentDialog from "@/components/application/AppointmentDialog";
 import { Search } from "lucide-react";
 
 function normalizeText(value) {

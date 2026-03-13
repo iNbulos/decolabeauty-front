@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../../components/ui/button";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../../components/portfolio/Navbar";
+import Footer from "../../components/portfolio/Footer";
 
 const Privacy = () => {
   return (

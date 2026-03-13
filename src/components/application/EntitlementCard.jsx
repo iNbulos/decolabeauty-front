@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import { toast } from "sonner";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent } from "../ui/card";
 import { Calendar } from "lucide-react";
-import { api, usersApi } from "../api";
-import { useAuth } from "../contexts/AuthContext";
+import { api, usersApi } from "../../api";
+import { useAuth } from "../../contexts/AuthContext";
 export default function EntitlementCard({ entitlement }) {
 
     if (!entitlement) {

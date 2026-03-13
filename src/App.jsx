@@ -3,11 +3,99 @@ import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Switch, Route, useLocation } from "wouter";
-import { Home, Privacy, NotFound, Login, UsersPage, User, Main, Unauthorized } from "./pages";
+import { Home, Privacy, NotFound, Login, UsersPage, FragUser, Main, Unauthorized } from "./pages";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { useEffect } from "react";
+import CardLoading from "./components/CardLoading";
 
 const queryClient = new QueryClient();
+
+function AppShell({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        {children}
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
+
+function Portfolio() {
+  return (
+    <AppShell>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/privacy" component={Privacy} />
+
+        <Route path="/401">
+          <Unauthorized />
+        </Route>
+
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </AppShell>
+  );
+}
+
+function Application() {
+  return (
+    <AuthProvider>
+      <AppShell>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+
+          <Route path="/account">
+            <PrivateRoute roles={["client", "admin"]}>
+              <FragUser />
+            </PrivateRoute>
+          </Route>
+
+          <Route path="/admin">
+            <PrivateRoute roles={["admin"]}>
+              <UsersPage />
+            </PrivateRoute>
+          </Route>
+
+          <Route path="/">
+            <PrivateRoute roles={["client", "admin"]}>
+              <Main />
+            </PrivateRoute>
+          </Route>
+
+          <Route path="/401">
+            <Unauthorized />
+          </Route>
+
+          <Route>
+            <NotFound />
+          </Route>
+
+        </Switch>
+      </AppShell>
+    </AuthProvider>
+  );
+}
+
+
+function AppRouter() {
+  const dominio = window.location.hostname;
+
+  if (dominio === "app.decolabeauty.com" || dominio === "localhost") {
+    return <Application />;
+  }
+
+  if (dominio === "decolabeauty.com") {
+    return <Portfolio />;
+  }
+
+  return <NotFound />
+}
 
 function PrivateRoute({ children, roles }) {
   const { user, loading, role } = useAuth();
@@ -28,8 +116,8 @@ function PrivateRoute({ children, roles }) {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-gray-700">
-        Carregando...
+      <div className="flex h-screen items-center justify-center">
+        <CardLoading />
       </div>
     );
   }
@@ -44,49 +132,6 @@ function PrivateRoute({ children, roles }) {
 }
 
 
-const App = () => (
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/privacy" component={Privacy} />
-
-          <Route path="/login" component={Login} />
-
-          {/* Admin protegido */}
-
-          <Route path="/account">
-            <User />
-          </Route>
-
-          <Route path="/admin">
-            <PrivateRoute roles={["admin"]}>
-              <UsersPage />
-            </PrivateRoute>
-          </Route>
-
-          <Route path="/application">
-            <PrivateRoute roles={["client", "admin"]}>
-              <Main />
-            </PrivateRoute>
-          </Route>
-
-          <Route path="/401">
-            <Unauthorized />
-          </Route>
-
-          {/* 404 */}
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </AuthProvider>
-);
-
-export default App;
+export default function App() {
+  return <AppRouter />;
+}

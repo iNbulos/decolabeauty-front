@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { api, usersApi } from "../../api";
-import { useAuth } from "../../contexts/AuthContext";
-import UserAccordionCard from "../../components/UserAccordionCard";
-import Navbar from "@/components/Navbar";
+import { api, usersApi } from "../../../api";
+import { useAuth } from "../../../contexts/AuthContext";
+import UserAccordionCard from "@/components/portfolio/UserAccordionCard";
+import Navbar from "@/components/portfolio/Navbar";
 import CardLoading from "@/components/CardLoading";
 
 

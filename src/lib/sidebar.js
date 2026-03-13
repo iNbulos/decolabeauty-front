@@ -89,21 +89,9 @@ export const sidebarSections = [
                 id: "settings",
                 label: "Minha conta",
                 icon: Settings,
-            },
-            {
-                id: "logout",
-                label: "Sair",
-                icon: LogOut,
-                danger: true,
-            },
+            }
         ],
-    },
-    {
-        type: "item",
-        id: "home",
-        label: "Página inicial",
-        icon: Home,
-    },
+    }
 ];
 
 export const sidebarTranslate = {

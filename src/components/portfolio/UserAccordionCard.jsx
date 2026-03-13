@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EntitlementCard from "./EntitlementCard";
+import EntitlementCard from "../application/EntitlementCard";
 
 function UserAccordionCard({ user }) {
   const [expanded, setExpanded] = useState(false);

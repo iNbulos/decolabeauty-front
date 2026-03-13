@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
-import { sidebarSections } from "../lib/sidebar";
+import { sidebarSections } from "../../lib/sidebar";
 
 function SidebarItem({
   item,

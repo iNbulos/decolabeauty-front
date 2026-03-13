@@ -9,7 +9,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { db } from "./firebase";
 
 function clean(s) {
   return String(s || "").trim();
