@@ -9,7 +9,7 @@ import {
     UserRoundCog,
     Award,
     ChartColumn,
-    Settings, 
+    Settings,
 } from "lucide-react";
 
 export const sidebarSections = [
@@ -17,83 +17,103 @@ export const sidebarSections = [
         type: "item",
         id: "agenda",
         label: "Agenda",
-        icon: CalendarDays
+        icon: CalendarDays,
+        visible: true,
     },
     {
         type: "item",
         id: "outstanding",
         label: "Cobranças",
-        icon: BadgeDollarSign
+        icon: BadgeDollarSign,
+        visible: true,
     },
     {
         type: "group",
+        id: "group_items",
         label: "Itens",
-        children: [
-            {
-                id: "mpd",
-                label: "Msgs Pré-definidas",
-                icon: MessageSquareText,
-            },
-            {
-                id: "customers",
-                label: "Clientes",
-                icon: Users,
-            },
-            {
-                id: "services",
-                label: "Serviço",
-                icon: BriefcaseBusiness,
-            },
-            {
-                id: "products",
-                label: "Produtos e Estoque",
-                icon: ShoppingCart,
-                visible: false,
-            },
-            {
-                id: "expenses",
-                label: "Despesas",
-                icon: ReceiptText,
-            },
-            {
-                id: "employees",
-                label: "Funcionários",
-                icon: UserRoundCog,
-                visible: false,
-            }, {
-                id: "entitlements",
-                label: "Assinaturas",
-                icon: BadgeDollarSign,
-                visible: true,
-            },
-        ],
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "mpd",
+        label: "Msgs Pré-definidas",
+        icon: MessageSquareText,
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "customers",
+        label: "Clientes",
+        icon: Users,
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "services",
+        label: "Serviço",
+        icon: BriefcaseBusiness,
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "products",
+        label: "Produtos e Estoque",
+        icon: ShoppingCart,
+        visible: false,
+    },
+    {
+        type: "item",
+        id: "expenses",
+        label: "Despesas",
+        icon: ReceiptText,
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "employees",
+        label: "Funcionários",
+        icon: UserRoundCog,
+        visible: false,
+    },
+    {
+        type: "item",
+        id: "entitlements",
+        label: "Assinaturas",
+        icon: BadgeDollarSign,
+        visible: true,
     },
     {
         type: "group",
+        id: "group_reports",
         label: "Relatórios",
-        children: [
-            {
-                id: "top_customers",
-                label: "Melhores clientes",
-                icon: Award,
-            },
-            {
-                id: "overview",
-                label: "Resumo financeiro",
-                icon: ChartColumn,
-            },
-        ],
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "top_customers",
+        label: "Melhores clientes",
+        icon: Award,
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "overview",
+        label: "Resumo financeiro",
+        icon: ChartColumn,
+        visible: true,
     },
     {
         type: "group",
-        label: "Conta e funcionários",
-        children: [
-            {
-                id: "settings",
-                label: "Minha conta",
-                icon: Settings,
-            }
-        ],
+        id: "group_account",
+        label: "Conta",
+        visible: true,
+    },
+    {
+        type: "item",
+        id: "settings",
+        label: "Minha conta",
+        icon: Settings,
+        visible: true,
     }
 ];
 

@@ -36,77 +36,6 @@ function SidebarItem({
   );
 }
 
-function SidebarGroup({
-  group,
-  activeItem,
-  onNavigate,
-  onItemClick,
-}) {
-  const hasActiveChild = useMemo(() => {
-    return group.children.some((child) => child.id === activeItem);
-  }, [group.children, activeItem]);
-
-  const [open, setOpen] = useState(hasActiveChild);
-  const { role } = useAuth();
-
-  function isAdmin() {
-    return role === "admin";
-  }
-
-  useEffect(() => {
-    if (hasActiveChild) {
-      setOpen(true);
-    }
-  }, [hasActiveChild]);
-
-  const visibleChildren = group.children.filter((child) => child.visible !== false);
-
-  return (
-    <div className="space-y-2">
-      <button
-        type="button"
-        onClick={() => setOpen((current) => !current)}
-        className={[
-          "flex w-full items-center justify-between gap-3 rounded-2xl px-3 py-2 text-left transition-colors",
-          hasActiveChild
-            ? "bg-muted text-foreground"
-            : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
-        ].join(" ")}
-      >
-        <span className="min-w-0 truncate text-[11px] sm:text-xs font-bold uppercase tracking-[0.16em]">
-          {group.label}
-        </span>
-
-        <ChevronDown
-          className={[
-            "h-4 w-4 shrink-0 transition-transform duration-200",
-            open ? "rotate-180" : "rotate-0",
-          ].join(" ")}
-        />
-      </button>
-
-      {open && (
-        <div className="space-y-1 pl-1 sm:pl-2">
-          {visibleChildren.map((child) => {
-            if (child.id === "entitlements" && !isAdmin()) {
-              return null; // Esconde o item "Entitlements" para usuários não administradores
-            }
-            return (
-              <SidebarItem
-                key={child.id}
-                item={child}
-                isActive={activeItem === child.id}
-                onNavigate={onNavigate}
-                onItemClick={onItemClick}
-              />
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
 export default function Sidebar({
   activeItem = "agenda",
   onNavigate = () => { },
@@ -170,10 +99,22 @@ export default function Sidebar({
           </button>
         </div>
 
-        <div className="flex-1 space-y-4 overflow-y-auto px-3 sm:px-4 py-4">
+        <div className="flex-1 space-y-.5 overflow-y-auto px-3 sm:px-4 py-4">
           {sidebarSections.map((section) => {
+            if (!section.visible) {
+              return null;
+            }
+
             if (section.id === "entitlements" && !isAdmin()) {
               return null; // Esconde o item "Entitlements" para usuários não administradores
+            }
+
+            if (section.type === "group") {
+              return (
+                <span className="min-w-0 ms-1 truncate text-[11px] sm:text-xs text-gray-500 font-bold uppercase tracking-[0.16em]">
+                  {section.label}
+                </span>
+              );
             }
             if (section.type === "item") {
               return (
@@ -186,16 +127,6 @@ export default function Sidebar({
                 />
               );
             }
-
-            return (
-              <SidebarGroup
-                key={section.label}
-                group={section}
-                activeItem={activeItem}
-                onNavigate={onNavigate}
-                onItemClick={onClose}
-              />
-            );
           })}
         </div>
 
