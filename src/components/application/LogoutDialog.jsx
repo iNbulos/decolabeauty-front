@@ -1,10 +1,18 @@
 import { LogOut, X } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useLocation } from "wouter";
 
-export default function LogoutDialog({
-    onClose,
-    onConfirm,
-    userName,
-}) {
+export default function LogoutDialog({ onClose }) {
+
+    const { user, signOut } = useAuth();
+    const [, setLocation] = useLocation();
+    async function handleSignOut() {
+    try {
+        await signOut();
+    } finally {
+        setLocation("/");
+    }
+}
     return (
         <div className="fixed inset-0 z-[100] grid place-items-center bg-black/45 p-3 sm:p-4">
             <div
@@ -47,9 +55,9 @@ export default function LogoutDialog({
                     <div className="px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
                         <div className="rounded-2xl border border-border bg-muted/40 p-4">
                             <p className="text-sm leading-6 text-foreground sm:text-[15px]">
-                                {userName ? (
+                                {user.displayName ? (
                                     <>
-                                        <span className="font-bold text-primary">{userName}</span>, você deseja realmente sair da sua conta?
+                                        <span className="font-bold text-primary">{user.displayName}</span>, você deseja realmente sair da sua conta?
                                     </>
                                 ) : (
                                     <>Você deseja realmente sair da sua conta?</>
@@ -73,7 +81,7 @@ export default function LogoutDialog({
 
                             <button
                                 type="button"
-                                onClick={onConfirm}
+                                onClick={handleSignOut}
                                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
                             >
                                 <LogOut className="h-4 w-4" />

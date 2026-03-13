@@ -111,7 +111,7 @@ export default function Sidebar({
 
             if (section.type === "group") {
               return (
-                <span className="min-w-0 ms-1 truncate text-[11px] sm:text-xs text-gray-500 font-bold uppercase tracking-[0.16em]">
+                <span key={section.id} className="min-w-0 ms-1 truncate text-[11px] sm:text-xs text-gray-500 font-bold uppercase tracking-[0.16em]">
                   {section.label}
                 </span>
               );

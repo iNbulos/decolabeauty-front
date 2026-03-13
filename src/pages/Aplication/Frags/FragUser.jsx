@@ -50,21 +50,11 @@ export default function FragUser() {
       ? user.providerData.map((provider) => provider.providerId).join(", ")
       : null;
 
-  async function handleSignOut() {
-    try {
-      await signOut();
-    } finally {
-      setLocation("/");
-    }
-  }
-
   return (
     <section className="flex h-full min-h-0 w-full flex-col text-foreground">
       {dialog && (
         <LogoutDialog
           onClose={() => setDialog(false)}
-          onConfirm={handleSignOut}
-          userName={displayName}
         />
       )}
 
@@ -176,7 +166,7 @@ export default function FragUser() {
 
                 <button
                   type="button"
-                  onClick={()=> setDialog(true)}
+                  onClick={() => setDialog(true)}
                   className="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
                 >
                   <LogOut className="h-4 w-4" />
