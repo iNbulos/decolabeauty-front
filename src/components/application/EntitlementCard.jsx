@@ -71,7 +71,7 @@ export default function EntitlementCard({ entitlement }) {
 
 
     return (
-        <section className="rounded-2xl  bg-gradient-to-br from-white via-white to-violet-50/30 px-8 pb-8 shadow-sm">
+        <section className="rounded-2xl bg-gradient-to-br from-white via-white to-violet-50/30 px-8 pb-8 ">
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-violet-400">
@@ -112,7 +112,7 @@ export default function EntitlementCard({ entitlement }) {
             </div>
 
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <div className="rounded-2xl border border-zinc-200 bg-white/90 p-4">
+                <div className="rounded-2xl bg-white/90 p-4">
                     <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-400">
                         Plano
                     </p>

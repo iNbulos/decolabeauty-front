@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import Sidebar from "../../components/application/Sidebar";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLocation } from "wouter";
+import { sidebarTranslate } from "../../lib/sidebar";
+import Sidebar from "../../components/application/Sidebar";
 import FragOutstanding from "./Frags/FragOutstanding";
 import FragCustomer from "./Frags/FragCustomer";
-import { sidebarTranslate } from "../../lib/sidebar";
 import FragUser from "./Frags/FragUser";
+import FragEntitlements from "./Frags/FragEntitlements";
 
 export default function Main() {
     const [activeItem, setActiveItem] = useState("agenda");
@@ -44,6 +45,12 @@ export default function Main() {
 
         if (itemId === "settings") {
             setActivePage(<FragUser />);
+            setSidebarOpen(false);
+            return;
+        }
+
+        if (itemId === "entitlements") {
+            setActivePage(<FragEntitlements />);
             setSidebarOpen(false);
             return;
         }

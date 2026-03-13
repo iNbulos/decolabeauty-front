@@ -9,9 +9,7 @@ import {
     UserRoundCog,
     Award,
     ChartColumn,
-    Settings,
-    LogOut,
-    Home,
+    Settings, 
 } from "lucide-react";
 
 export const sidebarSections = [
@@ -62,6 +60,11 @@ export const sidebarSections = [
                 label: "Funcionários",
                 icon: UserRoundCog,
                 visible: false,
+            }, {
+                id: "entitlements",
+                label: "Assinaturas",
+                icon: BadgeDollarSign,
+                visible: true,
             },
         ],
     },

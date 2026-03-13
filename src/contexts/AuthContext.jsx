@@ -11,8 +11,11 @@ import {
   onAuthStateChanged,
   signInWithPopup as firebaseSignInWithPopup,
   signOut as firebaseSignOut,
-} from "firebase/auth";
 
+  // ✅ ADICIONADO
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 import { auth } from "../lib/firebase";
 
@@ -32,6 +35,11 @@ const AuthContext = createContext({
   profile: null,
   getIdToken: async (_forceRefresh = false) => null,
   signInWithGoogle: async () => { },
+
+  // ✅ ADICIONADO
+  signInWithEmail: async (_email, _password) => { },
+  signUpWithEmail: async (_email, _password, _extraData = {}) => { },
+
   signOut: async () => { },
   updateUserProfile: async (_data) => { },
 });
@@ -161,6 +169,41 @@ export function AuthProvider({ children }) {
     return result;
   };
 
+  // ✅ ADICIONADO: login com email e senha
+  const signInWithEmail = async (email, password) => {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return result;
+  };
+
+  // ✅ ADICIONADO: criar conta com email e senha
+  const signUpWithEmail = async (email, password, extraData = {}) => {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const firebaseUser = result.user;
+
+    const ref = doc(db, "users", firebaseUser.uid);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists()) {
+      const userProfile = {
+        email: firebaseUser.email || email,
+        role: "client",
+        name: extraData.name || "",
+        photoURL: null,
+        createdAt: serverTimestamp(),
+      };
+
+      await setDoc(ref, userProfile);
+      setProfile(prev => ({ ...prev, ...userProfile }));
+      setRole(userProfile.role);
+    } else {
+      const data = await ensureUserProfileShape(firebaseUser, snap.data(), ref);
+      setProfile(data);
+      setRole(data.role || null);
+    }
+
+    return result;
+  };
+
   const updateUserProfile = async (data) => {
     if (!user) throw new Error("Nenhum usuário autenticado");
 
@@ -185,7 +228,7 @@ export function AuthProvider({ children }) {
 
   const getIdToken = useCallback(async (forceRefresh = false) => {
     const u = auth.currentUser;
-    if (!u) return null;                // ou throw new Error(...)
+    if (!u) return null;
     return await u.getIdToken(forceRefresh);
   }, []);
 
@@ -198,6 +241,11 @@ export function AuthProvider({ children }) {
         loading,
         getIdToken,
         signInWithGoogle,
+
+        // ✅ ADICIONADO
+        signInWithEmail,
+        signUpWithEmail,
+
         signOut,
         updateUserProfile,
       }}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import { sidebarSections } from "../../lib/sidebar";
+import { useAuth } from "../../contexts/AuthContext";
 
 function SidebarItem({
   item,
@@ -46,6 +47,11 @@ function SidebarGroup({
   }, [group.children, activeItem]);
 
   const [open, setOpen] = useState(hasActiveChild);
+  const { role } = useAuth();
+
+  function isAdmin() {
+    return role === "admin";
+  }
 
   useEffect(() => {
     if (hasActiveChild) {
@@ -81,15 +87,20 @@ function SidebarGroup({
 
       {open && (
         <div className="space-y-1 pl-1 sm:pl-2">
-          {visibleChildren.map((child) => (
-            <SidebarItem
-              key={child.id}
-              item={child}
-              isActive={activeItem === child.id}
-              onNavigate={onNavigate}
-              onItemClick={onItemClick}
-            />
-          ))}
+          {visibleChildren.map((child) => {
+            if (child.id === "entitlements" && !isAdmin()) {
+              return null; // Esconde o item "Entitlements" para usuários não administradores
+            }
+            return (
+              <SidebarItem
+                key={child.id}
+                item={child}
+                isActive={activeItem === child.id}
+                onNavigate={onNavigate}
+                onItemClick={onItemClick}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -103,6 +114,13 @@ export default function Sidebar({
   isOpen = false,
   onClose = () => { },
 }) {
+
+  const { role } = useAuth();
+
+  function isAdmin() {
+    return role === "admin";
+  }
+
   return (
     <>
       <div
@@ -154,6 +172,9 @@ export default function Sidebar({
 
         <div className="flex-1 space-y-4 overflow-y-auto px-3 sm:px-4 py-4">
           {sidebarSections.map((section) => {
+            if (section.id === "entitlements" && !isAdmin()) {
+              return null; // Esconde o item "Entitlements" para usuários não administradores
+            }
             if (section.type === "item") {
               return (
                 <SidebarItem
